@@ -1,6 +1,7 @@
 name: build-and-deploy
-'on':
-  workflow_dispatch: null
+on:
+  workflow_dispatch: 
+
 defaults:
   run:
     shell: bash
