@@ -27,7 +27,9 @@ jobs:
         uses: docker/metadata-action@v4
         with:
           images: "argosgroup/${{ env.REPOSITORY_NAME }}"
-
+      - name: Build the Docker image
+        run: docker images 
+        
       - name: Build and push
         id: build
         uses: docker/build-push-action@v3
