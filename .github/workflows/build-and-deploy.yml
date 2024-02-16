@@ -26,7 +26,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v4
         with:
-          images: "snyk/${{ env.REPOSITORY_NAME }}"
+          images: "argosgroup/${{ env.REPOSITORY_NAME }}"
 
       - name: Build and push
         id: build
