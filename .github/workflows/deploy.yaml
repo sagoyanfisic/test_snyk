@@ -24,7 +24,7 @@ jobs:
       with:
         image: mcastellin/snyk-container-demo
         args: --file=Dockerfile --exclude-base-image-vulns
-    - name: Upload result to GitHub Code Scanning
-      uses: github/codeql-action/upload-sarif@v3
-      with:
-        sarif_file: snyk.sarif
+    # - name: Upload result to GitHub Code Scanning
+    #   uses: github/codeql-action/upload-sarif@v3
+    #   with:
+    #     sarif_file: snyk.sarif
