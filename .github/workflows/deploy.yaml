@@ -81,7 +81,7 @@ jobs:
         run: docker pull argosgroup/test_snyk:main-9da1c4424c64d49dcebfecc33a698be483df62dd
       - name: Docker images list
         run: docker images
-        - name: Run Snyk to check Docker image for vulnerabilities
+      - name: Run Snyk v2
         continue-on-error: true
         uses: snyk/actions/docker@master
         env:
