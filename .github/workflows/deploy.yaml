@@ -29,7 +29,7 @@ jobs:
           images: "argosgroup/${{ env.REPOSITORY_NAME }}"
           
       - name: Build login 2
-        run: docker login --password ${{ secrets.DOCKERHUB_TOKEN }}  --username ${{ secrets.DOCKERHUB_USER }}
+        run: docker login --password ${{ secrets.DOCKERHUB_TOKEN }}  --username ${{ secrets.DOCKERHUB_USER }} && docker images
       - name: Docker images list
         run: docker images
 
