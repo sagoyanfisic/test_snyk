@@ -73,4 +73,4 @@ jobs:
         #   with:
         #     sarif_file: snyk.sarif
       - name: Docker images list
-        run: cat snyk.sarif
+        run: ls -la
