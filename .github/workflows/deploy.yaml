@@ -66,11 +66,11 @@ jobs:
         # or you can signup for free at https://snyk.io/login
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         with:
-          image: "${{ env.IMAGE }}"
+          image: argosgroup/test_snyk:main-5af43bfb72d4db32fc33ea04626d1c10bbba00e9
           args: --file=Dockerfile --exclude-base-image-vulns
         # - name: Upload result to GitHub Code Scanning
         #   uses: github/codeql-action/upload-sarif@v3
         #   with:
         #     sarif_file: snyk.sarif
       - name: Docker images list
-        run: ls -la
+        run: ls -la 
