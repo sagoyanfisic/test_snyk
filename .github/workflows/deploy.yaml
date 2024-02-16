@@ -66,7 +66,7 @@ jobs:
         # or you can signup for free at https://snyk.io/login
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         with:
-          image: "${{ env.REPOSITORY_NAME }}"
+          image: "${{ env.IMAGE }}"
           args: --file=Dockerfile --exclude-base-image-vulns
         # - name: Upload result to GitHub Code Scanning
         #   uses: github/codeql-action/upload-sarif@v3
