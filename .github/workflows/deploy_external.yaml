@@ -1,4 +1,4 @@
-name: Snyk
+name: Validador
 
 on:
   workflow_dispatch:
