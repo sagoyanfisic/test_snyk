@@ -32,6 +32,7 @@ jobs:
         run: |
           echo "Imagen encontrada: $LINEA"
           # Otra lógica utilizando $LINEA
+        id: image_id
   build:
     runs-on: ubuntu-latest
     needs: extrac_image
@@ -45,13 +46,13 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USER }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-          
+
       - name: Print IMAGE
         env:
-          LINEA: ${{ env.LINEA }}
+          LINEA: ${{ needs.extrac_image.outputs.linea_output }}
         run: |
           echo "Imagen encontrada: $LINEA"
-
+          
       - name: Docker images list
         run: docker pull ${{ env.LINEA }}
 
