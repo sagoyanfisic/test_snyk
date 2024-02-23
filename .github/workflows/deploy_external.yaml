@@ -26,8 +26,8 @@ jobs:
           echo "LINEA=$LINEA" >> $GITHUB_ENV
 
       - name: Print IMAGE
-      env:
-        LINEA: ${{ env.LINEA }}
-      run: |
-        echo "Imagen encontrada: $LINEA"
-        # Otra lógica utilizando $LINEA
+        env:
+          LINEA: ${{ env.LINEA }}
+        run: |
+          echo "Imagen encontrada: $LINEA"
+          # Otra lógica utilizando $LINEA
