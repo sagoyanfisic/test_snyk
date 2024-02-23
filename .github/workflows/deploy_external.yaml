@@ -57,7 +57,7 @@ jobs:
 
       - name: Run Snyk v2
         continue-on-error: true
-        uses: snyk/actions/docker@v2
+        uses: snyk/actions/docker@master
         env:
           IMAGE: ${{ needs.extract_image.outputs.IMAGE }}
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
