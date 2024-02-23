@@ -20,7 +20,7 @@ jobs:
           fetch-depth: 0
           repository: 'sagoyanfisic/test_snyk_yaml'
           ref: 'main'
-          path: 'yamls/envs'
+          path: 'yamls/envs/'
           token: ${{ secrets.ACCESS_TOKEN }}
       
       - name: Read line from file
