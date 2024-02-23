@@ -73,3 +73,5 @@ jobs:
         with:
           image: ${{ needs.extrac_image.outputs.linea_output }}
           args: --file=Dockerfile --exclude-base-image-vulns
+      - name: Upload result to GitHub Code Scanning
+        run: cat snyk.sarif
