@@ -14,7 +14,8 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
         with:
-          repository: 'sagoyanfisic/test_snyk_yaml'
+          fetch-depth: 0
+          repository: 'test_snyk_yaml'
           ref: 'main'
       
       - name: Paso siguiente de leer
