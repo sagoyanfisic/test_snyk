@@ -1,7 +1,8 @@
 name: Snyk
+
 on:
   workflow_dispatch:
-      
+
 defaults:
   run:
     shell: bash
@@ -18,9 +19,15 @@ jobs:
           repository: 'sagoyanfisic/test_snyk_yaml'
           ref: 'main'
           token: ${{ secrets.ACCESS_TOKEN }}
-          
+      
       - name: Paso siguiente de leer
-        run:  | 
-            linea=$(grep -m 1 "luuna/erpnext-worker:master-" test.yaml | sed 's/^[ \t]*//' |  awk '{print $2}' )
-            echo $linea
-          
+        run: | 
+          export LINEA=$(grep -m 1 "luuna/erpnext-worker:master-" test.yaml | sed 's/^[ \t]*//' |  awk '{print $2}' )
+          echo "LINEA=$LINEA" >> $GITHUB_ENV
+
+      - name: Print IMAGE
+      env:
+        LINEA: ${{ env.LINEA }}
+      run: |
+        echo "Imagen encontrada: $LINEA"
+        # Otra lógica utilizando $LINEA
