@@ -24,7 +24,7 @@ jobs:
       
       - name: Check if test.yaml exists
         run: |
-          if [ ! -f "test.yaml" ]; then
+          if [ ! -f "yamls/envs/test.yaml" ]; then
             echo "Error: test.yaml not found!"
             exit 1
           fi
