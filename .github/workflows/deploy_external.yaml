@@ -32,7 +32,7 @@ jobs:
       - name: Read line from file
         id: set_image
         run: | 
-          export IMAGE=$(grep -m 1 "argosgroup/test_snyk:main-" test.yaml | sed 's/^[ \t]*//' |  awk '{print $2}' )
+          export IMAGE=$(grep -m 1 "argosgroup/test_snyk:main-" yamls/envs/test.yaml | sed 's/^[ \t]*//' |  awk '{print $2}' )
           echo "IMAGE=$IMAGE" >> $GITHUB_ENV
           # Set output using set-output
           echo "::set-output name=IMAGE::$IMAGE"
