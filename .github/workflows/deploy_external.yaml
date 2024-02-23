@@ -13,9 +13,6 @@ jobs:
     timeout-minutes: 30
     outputs:
       IMAGE: ${{ steps.set_image.outputs.IMAGE }}
-    strategy:
-      matrix:
-        dockerfile: ["Dockerfile.worker", "Dockerfile.nginx"]
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
