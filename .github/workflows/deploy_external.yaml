@@ -45,6 +45,12 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USER }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
+          
+      - name: Print IMAGE
+        env:
+          LINEA: ${{ env.LINEA }}
+        run: |
+          echo "Imagen encontrada: $LINEA"
 
       - name: Docker images list
         run: docker pull ${{ env.LINEA }}
