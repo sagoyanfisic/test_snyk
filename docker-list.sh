@@ -2,10 +2,10 @@
 
 set -euxo pipefail
 
-DOCKER_HUB_ORG="argosgroup"
-DOCKER_HUB_REPO="test_snyk"
-DOCKER_HUB_USER="argosgroup"
-DOCKER_HUB_PASSWORD="Ubuntu9801$"
+DOCKER_HUB_ORG=""
+DOCKER_HUB_REPO=""
+DOCKER_HUB_USER=""
+DOCKER_HUB_PASSWORD=""
 
 AUTH_DOMAIN="auth.docker.io"
 AUTH_SERVICE="registry.docker.io"
