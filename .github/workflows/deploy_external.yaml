@@ -60,14 +60,16 @@ jobs:
           echo "Imagen encontrada: $LINEA"
 
       - name: Docker images list
+        env:
+          LINEA: ${{ needs.extrac_image.outputs.linea_output }}
         run: docker pull ${{ env.LINEA }}
 
       - name: Run Snyk v2
         continue-on-error: true
         uses: snyk/actions/docker@master
         env:
-          IMAGE: ${{ steps.meta.outputs.tags }}-${{ github.sha }}
+          IMAGE: ${{ needs.extrac_image.outputs.linea_output }}
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         with:
-          image: ${{ env.IMAGE }}
+          image: ${{ needs.extrac_image.outputs.linea_output }}
           args: --file=Dockerfile --exclude-base-image-vulns
