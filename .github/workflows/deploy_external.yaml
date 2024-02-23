@@ -12,31 +12,31 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 30
     outputs:
-      # Define una salida llamada 'linea_output'
-      linea_output: ${{ steps.set_linea.outputs.LINEA }}
+      # Define una salida llamada 'IMAGE'
+      IMAGE: ${{ steps.set_image.outputs.IMAGE }}
     steps:
-      - name: Checkout
-        uses: actions/checkout@v3
+      - name: Checkout código
+        uses: actions/checkout@v2
         with:
           fetch-depth: 0
           repository: 'sagoyanfisic/test_snyk_yaml'
           ref: 'main'
           token: ${{ secrets.ACCESS_TOKEN }}
       
-      - name: Paso siguiente de leer
-        id: set_linea
+      - name: Leer línea desde archivo
+        id: set_image
         run: | 
-          export LINEA=$(grep -m 1 "argosgroup/test_snyk:main-" test.yaml | sed 's/^[ \t]*//' |  awk '{print $2}' )
-          echo "LINEA=$LINEA" >> $GITHUB_ENV
+          export IMAGE=$(grep -m 1 "argosgroup/test_snyk:main-" test.yaml | sed 's/^[ \t]*//' |  awk '{print $2}' )
+          echo "IMAGE=$IMAGE" >> $GITHUB_ENV
           # Establecer la salida usando set-output
-          echo "::set-output name=LINEA::$LINEA"
+          echo "::set-output name=IMAGE::$IMAGE"
 
-      - name: Print IMAGE
+      - name: Imprimir información de la imagen
         env:
-          LINEA: ${{ env.LINEA }}
+          IMAGE: ${{ env.IMAGE }}
         run: |
-          echo "Imagen encontrada: $LINEA"
-          # Otra lógica utilizando $LINEA
+          echo "Imagen encontrada: $IMAGE"
+          # Otra lógica utilizando $IMAGE
         id: image_id
 
   build:
@@ -44,34 +44,35 @@ jobs:
     needs: extrac_image
     timeout-minutes: 30
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+      - name: Checkout código
+        uses: actions/checkout@v2
 
-      - name: DockerHub login
+      - name: Iniciar sesión en DockerHub
         uses: docker/login-action@v2
         with:
           username: ${{ secrets.DOCKERHUB_USER }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: Print IMAGE
+      - name: Imprimir información de la imagen
         env:
-          LINEA: ${{ needs.extrac_image.outputs.linea_output }}
+          IMAGE: ${{ needs.extrac_image.outputs.IMAGE }}
         run: |
-          echo "Imagen encontrada: $LINEA"
+          echo "Imagen encontrada: $IMAGE"
 
-      - name: Docker images list
+      - name: Obtener lista de imágenes de Docker
         env:
-          LINEA: ${{ needs.extrac_image.outputs.linea_output }}
-        run: docker pull ${{ env.LINEA }}
+          IMAGE: ${{ needs.extrac_image.outputs.IMAGE }}
+        run: docker pull ${{ env.IMAGE }}
 
-      - name: Run Snyk v2
+      - name: Ejecutar Snyk v2
         continue-on-error: true
-        uses: snyk/actions/docker@master
+        uses: snyk/actions/docker@v2
         env:
-          IMAGE: ${{ needs.extrac_image.outputs.linea_output }}
+          IMAGE: ${{ needs.extrac_image.outputs.IMAGE }}
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         with:
-          image: ${{ needs.extrac_image.outputs.linea_output }}
+          image: ${{ needs.extrac_image.outputs.IMAGE }}
           args: --file=Dockerfile --exclude-base-image-vulns
-      - name: Upload result to GitHub Code Scanning
+
+      - name: Subir resultados a GitHub Code Scanning
         run: cat snyk.sarif
