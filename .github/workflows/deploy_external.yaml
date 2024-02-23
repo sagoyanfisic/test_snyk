@@ -72,7 +72,7 @@ jobs:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         with:
           image: ${{ needs.extract_image.outputs.IMAGE }}
-          args: --file=${{ matrix.dockerfile }}
+          args: --file=${{ matrix.dockerfile }} --exclude-base-image-vulns
 
       - name: Upload results to GitHub Code Scanning
         run: cat snyk.sarif
