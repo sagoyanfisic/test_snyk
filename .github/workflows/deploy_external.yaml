@@ -20,9 +20,15 @@ jobs:
           fetch-depth: 0
           repository: 'sagoyanfisic/test_snyk_yaml'
           ref: 'main'
-          path: 'yamls/envs/'
           token: ${{ secrets.ACCESS_TOKEN }}
       
+      - name: Check if test.yaml exists
+        run: |
+          if [ ! -f "test.yaml" ]; then
+            echo "Error: test.yaml not found!"
+            exit 1
+          fi
+
       - name: Read line from file
         id: set_image
         run: | 
