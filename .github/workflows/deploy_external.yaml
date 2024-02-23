@@ -12,10 +12,10 @@ jobs:
     timeout-minutes: 30
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v3
         with:
           fetch-depth: 0
-          repository: 'test_snyk_yaml'
+          repository: 'sagoyanfisic/test_snyk_yaml'
           ref: 'main'
       
       - name: Paso siguiente de leer
