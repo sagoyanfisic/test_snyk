@@ -13,6 +13,9 @@ jobs:
     timeout-minutes: 30
     outputs:
       IMAGE: ${{ steps.set_image.outputs.IMAGE }}
+    strategy:
+      matrix:
+        dockerfile: ["Dockerfile.worker", "Dockerfile.nginx"]
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -41,6 +44,9 @@ jobs:
     runs-on: ubuntu-latest
     needs: extract_image
     timeout-minutes: 30
+    strategy:
+      matrix:
+        dockerfile: ["Dockerfile.worker", "Dockerfile.nginx"]
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -69,7 +75,7 @@ jobs:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         with:
           image: ${{ needs.extract_image.outputs.IMAGE }}
-          args: --file=Dockerfile --exclude-base-image-vulns
+          args: --file=${{ matrix.dockerfile }} --exclude-base-image-vulns
 
       - name: Upload results to GitHub Code Scanning
         run: cat snyk.sarif
